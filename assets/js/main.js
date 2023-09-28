@@ -1,24 +1,30 @@
 ;
 (function($) {
-    $(document).ready(function() {
-
     
-        /*---------------------------------
-		Javascript for wow animation
-		----------------------------------*/
-        new WOW().init();
+    var header = $('.header-area, .mobile-header');
+    $(window).scroll(function () {
+    var scroll = $(window).scrollTop()
 
+    if (scroll >= 250) {
+        header.addClass('sticky-menu')
+    } else {
+        header.removeClass('sticky-menu')
+    }
+    });
+
+    $(document).ready(function() {
+    
         /*-------------------------------------------------------------------------------
         javaScript for offcanvas
         -------------------------------------------------------------------------------*/
         $(".menu-trigger").on("click", function() {
             $(".offcanvas-header").addClass("active");
             $(".menu-trigger").hide();
-            $(".menu-close").show();
+            $(".menu-close, .drawer-overlay").show();
         });
-        $(".menu-close").on("click", function() {
+        $(".menu-close, .drawer-overlay").on("click", function() {
             $(".offcanvas-header").removeClass("active");
-            $(".menu-close").hide();
+            $(".menu-close, .drawer-overlay").hide();
             $(".menu-trigger").show();
         });
 
@@ -71,8 +77,8 @@
                     slidesToScroll: 2,
                     dots: false,
                     arrows: true,
-                    prevArrow: "<i class='prev fa fa-arrow-left'></i>",
-                    nextArrow: "<i class='next fa fa-arrow-right'></i>",
+                    prevArrow: '<span class="prev"><svg><use xlink:href="#icon-long-arrow-left"></use></svg></span>',
+                    nextArrow: '<span class="next"><svg><use xlink:href="#icon-long-arrow-right"></use></svg></span>',
                     responsive: [{
                         breakpoint: 575,
                         settings: {
@@ -145,29 +151,21 @@
             slidesToScroll: 1,
             dots: false,
             arrows: true,
-            prevArrow: "<i class='prev fa fa-arrow-left'></i>",
-            nextArrow: "<i class='next fa fa-arrow-right'></i>",
+            prevArrow: '<span class="prev"><svg><use xlink:href="#icon-long-arrow-left"></use></svg></span>',
+            nextArrow: '<span class="next"><svg><use xlink:href="#icon-long-arrow-right"></use></svg></span>',
             fade: false
         });
 
         /*------------------------------
 		Javascript for magnificPopup
 		-------------------------------*/
-        $(".img-popup-link").magnificPopup({
-	    	type: 'image',
-	    	removalDelay: 300,
-	    	mainClass: 'mfp-with-zoom',
-        	gallery:{
-			    enabled:true
-			},
-			zoom: {
-	        enabled: true,
-	        duration: 250,
-	        easing: 'ease-in-out',
-	      	}	
-
+        $('.img-popup-link').imageLightbox({
+            button: true,
+            quitOnDocClick: false,
+            history: true,
+            overlay: true,
+            activity: true,
         });
-
 
     });
 }(jQuery));
